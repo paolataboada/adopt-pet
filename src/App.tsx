@@ -14,12 +14,12 @@ function App() {
 			<Route element={<AuthLayout />}>
 				<Route path="login" element={<LoginPage />} />
 				<Route path="sign-up" element={<SignUpPage />} />
+				<Route path="*" element={<LoginPage />} />
 			</Route>
-			<Route path="/pets" element={<PetsPage />} />
-			<Route path="/" element={<DashboardLayout />}>
-				<Route path="pets" element={<PetsPage />} />
-				<Route path="profile" element={<ProfilePage />} />
-				<Route path="cart" element={<CartPage />} />
+			<Route element={<DashboardLayout />}>
+				<Route path="/pets" element={<PetsPage />} />
+				<Route path="/profile" element={<ProfilePage />} />
+				<Route path="/cart" element={<CartPage />} />
 			</Route>
 		</Routes>
 	);

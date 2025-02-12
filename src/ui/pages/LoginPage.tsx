@@ -1,4 +1,4 @@
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -15,8 +15,7 @@ async function loginUser(username: string, password: string): Promise<string | n
             throw new Error("Invalid username or password");
         }
 
-        const data = await response.json();
-        console.log("Login successful", data);
+        await response.json();
         return null;
     } catch (error) {
         return error instanceof Error ? error.message : "An unknown error occurred";
@@ -25,15 +24,22 @@ async function loginUser(username: string, password: string): Promise<string | n
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const { saveSession } = useAuth();
+    const { isAuthenticated, saveSession } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/pets");
+        }
+    }, [isAuthenticated, navigate]);
 
     const submitHandler = async (_previousState: string | null, formData: FormData): Promise<string | null> => {
         const username = formData.get("username") as string;
         const password = formData.get("password") as string;
 
         const errorMessage = await loginUser(username, password);
+
         if (!errorMessage) {
-            saveSession(username);
+            await saveSession(username);
             navigate("/pets");
             return null;
         }
@@ -44,7 +50,7 @@ const LoginPage = () => {
     const [error, formAction, isPending] = useActionState(submitHandler, null);
 
     return (
-        <form action={formAction} className="max-w-sm mx-auto p-4 bg-white shadow-md rounded-md text-black">
+        <form action={formAction} className="max-w-sm mx-auto p-8 bg-white shadow-md rounded-md text-black md:shadow-none md:p-4">
             <h2 className="text-2xl font-bold mb-4">Login</h2>
             <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">Username: </label>
@@ -69,9 +75,9 @@ const LoginPage = () => {
             </button>
             {error && <p className="text-red-500 mt-2">{error}</p>}
 
-            <div className="mt-2">
-                <p className="inline-block">¿No tienes una cuenta?</p>
-                <NavLink to="/sign-up" end>
+            <div className="flex justify-center gap-1 mt-2">
+                <p>¿No tienes una cuenta?</p>
+                <NavLink to="/sign-up" end className="text-blue-400 underline underline-offset-2">
                     Regístrate
                 </NavLink>
             </div>
