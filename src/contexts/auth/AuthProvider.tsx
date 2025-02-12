@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { IUser } from "../../domain/user.interface";
+import { IUser } from "../../domain/models/user.interface";
 import { AuthContext } from "./AuthContext";
 import { authService } from "../../infraestructure/auth.service";
 

@@ -1,4 +1,4 @@
-import { IUser } from '../domain/user.interface';
+import { IUser } from '../domain/models/user.interface';
 
 const API_URL = 'https://petstore.swagger.io/v2';
 
