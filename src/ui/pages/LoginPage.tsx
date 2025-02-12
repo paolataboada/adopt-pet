@@ -1,53 +1,33 @@
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 import { NavLink, useNavigate } from "react-router";
-import { useAuth } from "../../hooks/useAuth";
-
-async function loginUser(username: string, password: string): Promise<string | null> {
-    try {
-        const response = await fetch(
-            `https://petstore.swagger.io/v2/user/login?username=${username}&password=${password}`,
-            {
-                method: "GET",
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error("Invalid username or password");
-        }
-
-        await response.json();
-        return null;
-    } catch (error) {
-        return error instanceof Error ? error.message : "An unknown error occurred";
-    }
-}
+import { useAuth } from "../../application/auth/useAuth";
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const { isAuthenticated, saveSession } = useAuth();
+    const { login } = useAuth();
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate("/pets");
-        }
-    }, [isAuthenticated, navigate]);
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         navigate("/pets");
+    //     }
+    // }, [isAuthenticated, navigate]);
 
-    const submitHandler = async (_previousState: string | null, formData: FormData): Promise<string | null> => {
+    const handleLogin = async (_previousState: string | null, formData: FormData): Promise<string | null> => {
         const username = formData.get("username") as string;
         const password = formData.get("password") as string;
 
-        const errorMessage = await loginUser(username, password);
-
-        if (!errorMessage) {
-            await saveSession(username);
+        try {
+            await login(username, password);
             navigate("/pets");
             return null;
+        } catch (error) {
+            console.log(error);
+            alert("Error en login");
+            return "Error en login";
         }
-
-        return errorMessage;
     }
 
-    const [error, formAction, isPending] = useActionState(submitHandler, null);
+    const [error, formAction, isPending] = useActionState(handleLogin, null);
 
     return (
         <form action={formAction} className="max-w-sm mx-auto p-8 bg-white shadow-md rounded-md text-black md:shadow-none md:p-4">
