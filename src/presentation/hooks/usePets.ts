@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IPet } from '../../application/interfaces/pet.interface';
+import { IPet } from '../../domain/models/pet.interface';
 import { getPets } from '../../application/useCases/getPets';
 
 export const usePets = () => {
