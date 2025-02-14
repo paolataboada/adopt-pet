@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router';
-import LoginPage from './ui/pages/LoginPage';
-import SignUpPage from './ui/pages/SignUpPage';
-import AuthLayout from './ui/templates/AuthLayout';
-import DashboardLayout from './ui/templates/DashboardLayout';
+import LoginPage from './presentation/pages/LoginPage';
+import SignUpPage from './presentation/pages/SignUpPage';
+import AuthLayout from './presentation/templates/AuthLayout';
+import DashboardLayout from './presentation/templates/DashboardLayout';
 import PetsPage from './presentation/pages/PetsPage';
-import CartPage from './ui/pages/CartPage';
-import ProfilePage from './ui/pages/ProfilePage';
+import CartPage from './presentation/pages/CartPage';
+import ProfilePage from './presentation/pages/ProfilePage';
 import ProtectedRoute from './routes/ProtectedRoute';
+import { PetsProvider } from './contexts/pets/PetsProvider';
 
 function App() {
 	return (
@@ -18,7 +19,14 @@ function App() {
 			</Route>
 			<Route path="/" element={<ProtectedRoute />}>
 				<Route element={<DashboardLayout />}>
-					<Route path="pets" element={<PetsPage />} />
+					<Route
+						path="pets"
+						element={
+							<PetsProvider>
+								<PetsPage />
+							</PetsProvider>
+						}
+					/>
 					<Route path="profile" element={<ProfilePage />} />
 					<Route path="cart" element={<CartPage />} />
 				</Route>

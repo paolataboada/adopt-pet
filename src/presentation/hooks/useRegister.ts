@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { IUser } from '../../domain/models/user.interface';
 import { registerUser } from '../../application/useCases/registerUser';
+import { IReqUserRegister } from '../pages/SignUpPage';
 
 export const useRegister = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const handleRegister = async (user: IUser) => {
+	const handleRegister = async (user: IReqUserRegister) => {
 		setLoading(true);
 		setError(null);
 		try {

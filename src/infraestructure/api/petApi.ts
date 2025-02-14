@@ -1,5 +1,5 @@
 import httpClient from './httpClient';
-import { IPet } from '../domain/models/pet.interface';
+import { IPet } from '../../domain/models/pet.interface';
 
 export const petApi = {
 	getPets: async (): Promise<IPet[]> => {

@@ -12,9 +12,13 @@ export const loginSchema = z.object({
 
 	password: z
 		.string()
-		.nonempty('Password is required.')
-		.min(6, 'Password must be at least 6 characters.')
-		.max(50, 'Password is too long.'),
+		.min(6, 'Password must be at least 6 characters long')
+		.max(60, 'Password must not exceed 60 characters')
+		.regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+		.regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+		.regex(/\d/, 'Password must contain at least one number')
+		.regex(/[@$!%*?&]/, 'Password must contain at least one special character (@$!%*?&)')
+		.nonempty('Password is required.'),
 });
 
-export type AuthSchema = z.infer<typeof loginSchema>;
+export type LoginSchema = z.infer<typeof loginSchema>;

@@ -1,9 +1,20 @@
 import ReactPaginate from "react-paginate";
-import { usePets } from "../hooks/usePets";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PetContext } from "../../contexts/pets/PetsContext";
 
 const PetsPage = () => {
-    const { pets, loading } = usePets();
+    const context = useContext(PetContext);
+
+    if (!context) {
+        throw new Error("PetsPage must be used within a PetsProvider");
+    }
+
+    const { pets: data, fetchPets } = context;
+    const pets = data || [];
+
+    useEffect(() => {
+        fetchPets();
+    }, [fetchPets]);
 
     const [itemOffset, setItemOffset] = useState(0);
     const itemsPerPage = 8;
@@ -12,11 +23,9 @@ const PetsPage = () => {
     const pageCount = Math.ceil(pets.length / itemsPerPage);
 
     const handlePageClick = (event: { selected: number }) => {
-        const newOffset = (event.selected * itemsPerPage) % pets.length;
+        const newOffset = (event.selected * itemsPerPage) % pets?.length;
         setItemOffset(newOffset);
     };
-
-    if (loading) return <div className="text-center p-4">Loading...</div>;
 
     return (
         <div className="p-4">

@@ -1,6 +1,6 @@
-import { userApi } from '../../api/userApi';
-import { IUser } from '../../domain/models/user.interface';
+import { userApi } from '../../infraestructure/api/userApi';
+import { IReqUserRegister } from '../../presentation/pages/SignUpPage';
 
-export const registerUser = async (user: IUser) => {
+export const registerUser = async (user: IReqUserRegister) => {
 	await userApi.registerUser(user);
 };
