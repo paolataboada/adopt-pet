@@ -17,7 +17,7 @@ describe('mi_primer_prueba', () => {
 	
 	it('TC2: Debe iniciar sesión con credenciales válidas y no con credenciales inválidas', () => {
 		cy.get('input[name="username"]').type('usuarioejemplocom'); // Ingresar username
-		cy.get('input[name="password"]').type('pas123'); // Ingresar contraseña, min 6
+		cy.get('input[name="password"]').type('Pas123@'); // Ingresar contraseña, min 6
 		cy.get('button[type="submit"]').click(); // Clic en el botón de login
 		cy.url().should('include', '/pets'); // Verificar que redirige a pets
 		cy.get('h1').should('contain', 'Pets');
@@ -35,13 +35,12 @@ describe('mi_primer_prueba', () => {
 		cy.get('input[name="firstName"]').type('firstName'); // Ingresar firstName
 		cy.get('input[name="lastName"]').type('lastName'); // Ingresar lastName
 		cy.get('input[name="email"]').type('email@gmail.com'); // Ingresar email
-		cy.get('input[name="password"]').type('pas123'); // Ingresar contraseña, min 6
-		cy.get('input[name="phone"]').type('98526142'); // Ingresar phone
+		cy.get('input[name="password"]').type('Pas123@'); // Ingresar contraseña, min 6
+		cy.get('input[name="phone"]').type('9852614214'); // Ingresar phone
 		cy.wait(1000); // Espera para la respuesta del servidor
 		cy.get('button[type="submit"]').should('contain', 'Registrarse').click(); // Clic en el botón de login
 		cy.url().should('eq', 'http://localhost:5173/login'); // Verificar que regresa al inicio
 	});
-
 
 });
 
