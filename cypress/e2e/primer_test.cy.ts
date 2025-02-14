@@ -1,3 +1,5 @@
+/// <reference types="cypress"/>
+
 describe('mi_primer_prueba', () => {
 	beforeEach(() => {
 		cy.visit('http://localhost:5173'); // Ir a la página de login
