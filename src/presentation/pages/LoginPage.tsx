@@ -1,7 +1,7 @@
 import { useActionState, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "../../application/auth/useAuth";
-import { AuthSchema, loginSchema } from "../../domain/schemas/login.schema";
+import { LoginSchema, loginSchema } from "../../domain/schemas/login.schema";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const LoginPage = () => {
             const fieldErrors: { username?: string; password?: string } = {};
 
             validation.error.issues.forEach(issue => {
-                const field = issue.path[0] as keyof AuthSchema;
+                const field = issue.path[0] as keyof LoginSchema;
                 if (!fieldErrors[field]) {
                     fieldErrors[field] = issue.message;
                 }
