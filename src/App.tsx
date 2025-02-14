@@ -3,7 +3,7 @@ import LoginPage from './ui/pages/LoginPage';
 import SignUpPage from './ui/pages/SignUpPage';
 import AuthLayout from './ui/templates/AuthLayout';
 import DashboardLayout from './ui/templates/DashboardLayout';
-import PetsPage from './ui/pages/PetsPage';
+import PetsPage from './presentation/pages/PetsPage';
 import CartPage from './ui/pages/CartPage';
 import ProfilePage from './ui/pages/ProfilePage';
 import ProtectedRoute from './routes/ProtectedRoute';

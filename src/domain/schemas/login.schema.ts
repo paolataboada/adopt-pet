@@ -6,7 +6,6 @@ export const loginSchema = z.object({
 		.nonempty('Username is required.')
 		.min(3, 'Username must be at least 3 characters.')
 		.max(20, 'Username must not be longer than 20 characters.')
-		// .regex(/^[a-zA-Z0-9_]+$/, 'Only letters, numbers and underscores are allowed.'),
 		.refine((value) => /^[a-zA-Z0-9_]+$/.test(value), {
 			message: 'Only letters, numbers and underscores are allowed.',
 		}),

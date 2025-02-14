@@ -19,3 +19,14 @@ describe('mi_primer_prueba', () => {
 		cy.get('p').should('contain', 'Only letters, numbers and underscores are allowed.'); // Verificar mensaje de error
 	});
 });
+
+// Endpoints Tests
+describe('Get pets', () => {
+	it('Should return list of pets with status available', () => {
+		cy.request('GET', 'https://petstore.swagger.io/v2/pet/findByStatus?status=available').then((response) => {
+			expect(response.status).to.eq(200);
+			expect(response.body).to.be.an('array');
+			expect(response.body.length).to.be.greaterThan(0);
+		});
+	});
+});

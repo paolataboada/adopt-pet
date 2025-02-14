@@ -11,7 +11,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="fixed top-0 w-full bg-gray-800 text-white p-4 flex justify-between items-center">
+        <nav className="fixed top-0 w-full bg-gray-800 text-white p-4 flex justify-between items-center z-10">
             <div className="flex gap-4">
                 <NavLink to="/pets" className={({ isActive }) => isActive ? "text-blue-400" : "text-white"}>
                     Pets
